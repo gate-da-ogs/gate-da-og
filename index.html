@@ -3,74 +3,43 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IIT Rankers | 2025</title>
+  <title>IIT Rankers 2025</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(120deg, #0f0f0f, #1a1a2e);
       overflow: hidden;
-      background: radial-gradient(#1e1e2f, #111);
       color: #fff;
     }
 
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: -2;
-    }
-
-    .math-symbol {
-      position: fixed;
-      font-size: 2rem;
-      color: rgba(255, 255, 255, 0.08);
-      animation: float 20s linear infinite;
-      pointer-events: none;
-      user-select: none;
-      z-index: -1;
-    }
-
-    @keyframes float {
-      0% {
-        transform: translateY(100vh) rotate(0deg);
-        opacity: 0;
-      }
-      50% {
-        opacity: 0.1;
-      }
-      100% {
-        transform: translateY(-100vh) rotate(360deg);
-        opacity: 0;
-      }
-    }
-
     .container {
+      position: relative;
+      z-index: 2;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding-top: 60px;
       min-height: 100vh;
-      z-index: 1;
-      position: relative;
     }
 
     h1 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
-      color: #f0f0f0;
-      text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      font-size: 2.8em;
+      margin-bottom: 30px;
+      color: #00ffc3;
+      text-shadow: 0 0 10px #00ffc3;
     }
 
     .list-card {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 255, 200, 0.05);
+      border: 1px solid rgba(0, 255, 200, 0.15);
       border-radius: 16px;
-      backdrop-filter: blur(8px);
+      backdrop-filter: blur(10px);
       padding: 30px 40px;
       width: 90%;
       max-width: 500px;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 0 15px rgba(0, 255, 200, 0.1);
     }
 
     .rank-list {
@@ -82,50 +51,71 @@
     .rank-list li {
       padding: 12px 0;
       border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-      font-size: 1.1em;
-      color: rgba(255, 255, 255, 0.85);
+      font-size: 1.2em;
+      color: rgba(255, 255, 255, 0.9);
       animation: fadeIn 1s ease-in-out forwards;
       opacity: 0;
     }
 
-    .rank-list li:nth-child(1) { animation-delay: 0.2s; }
-    .rank-list li:nth-child(2) { animation-delay: 0.4s; }
-    .rank-list li:nth-child(3) { animation-delay: 0.6s; }
-    .rank-list li:nth-child(4) { animation-delay: 0.8s; }
-    .rank-list li:nth-child(5) { animation-delay: 1s; }
-    .rank-list li:nth-child(6) { animation-delay: 1.2s; }
-    .rank-list li:nth-child(7) { animation-delay: 1.4s; }
-    .rank-list li:nth-child(8) { animation-delay: 1.6s; }
-    .rank-list li:nth-child(9) { animation-delay: 1.8s; }
-    .rank-list li:nth-child(10) { animation-delay: 2s; }
+    .rank-list li:nth-child(n) { animation-delay: calc(0.2s * var(--i)); }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    @media screen and (max-width: 600px) {
+    /* Background Symbols Animation */
+    .symbol {
+      position: absolute;
+      font-size: 2.5rem;
+      color: rgba(0, 255, 200, 0.08);
+      animation: floatDown linear infinite;
+      user-select: none;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes floatDown {
+      0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.15;
+      }
+      100% {
+        transform: translateY(120vh) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2em;
+      }
       .list-card {
         padding: 20px;
+      }
+      .rank-list li {
+        font-size: 1em;
       }
     }
   </style>
 </head>
 <body>
-  <canvas id="bg"></canvas>
 
   <!-- Floating Math Symbols -->
   <script>
     const symbols = ["∑", "π", "μ", "σ", "√", "∫", "∂", "∞", "Δ", "λ"];
-    for (let i = 0; i < 30; i++) {
-      const symbol = document.createElement("div");
-      symbol.className = "math-symbol";
-      symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      symbol.style.left = Math.random() * 100 + "vw";
-      symbol.style.top = Math.random() * 100 + "vh";
-      symbol.style.fontSize = `${Math.random() * 2 + 1.5}rem`;
-      symbol.style.animationDuration = `${15 + Math.random() * 20}s`;
-      document.body.appendChild(symbol);
+    for (let i = 0; i < 40; i++) {
+      const el = document.createElement("div");
+      el.className = "symbol";
+      el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
+      el.style.left = Math.random() * 100 + "vw";
+      el.style.top = Math.random() * -100 + "vh";
+      el.style.animationDuration = `${15 + Math.random() * 20}s`;
+      el.style.fontSize = `${1.5 + Math.random() * 2.5}rem`;
+      document.body.appendChild(el);
     }
   </script>
 
@@ -133,81 +123,18 @@
     <h1>🎓 IIT Rankers 2025 🎉</h1>
     <div class="list-card">
       <ul class="rank-list">
-        <li>1. Jaydeep — IIT Madras</li>
-        <li>2. Spider — IIT Jodhpur</li>
-        <li>3. Vashisht — IIT Jodhpur</li>
-        <li>4. Anat / Aham / Rahul / A — IIT Madras</li>
-        <li>5. Arrrow — IIT Tirupati</li>
-        <li>6. Chinmay — IIT Pallakad</li>
-        <li>7. Chalrenoob — IIT Hyderabad</li>
-        <li>8. Nagendra — IIT Kharagpur</li>
-        <li>9. Priyadip — IIT Jodhpur</li>
-        <li>10. Ryuk — IIT Madras</li>
+        <li style="--i:1">1. Jaydeep — IIT Madras</li>
+        <li style="--i:2">2. Spider — IIT Jodhpur</li>
+        <li style="--i:3">3. Vashisht — IIT Jodhpur</li>
+        <li style="--i:4">4. Anat / Aham / Rahul / A — IIT Madras</li>
+        <li style="--i:5">5. Arrrow — IIT Tirupati</li>
+        <li style="--i:6">6. Chinmay — IIT Pallakad</li>
+        <li style="--i:7">7. Chalrenoob — IIT Hyderabad</li>
+        <li style="--i:8">8. Nagendra — IIT Kharagpur</li>
+        <li style="--i:9">9. Priyadip — IIT Jodhpur</li>
+        <li style="--i:10">10. Ryuk — IIT Madras</li>
       </ul>
     </div>
   </div>
-
-  <!-- Background Ball Animation -->
-  <script>
-    const canvas = document.getElementById("bg");
-    const ctx = canvas.getContext("2d");
-    let width, height;
-    const balls = [];
-
-    function resize() {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
-    }
-
-    window.addEventListener("resize", resize);
-    resize();
-
-    class Ball {
-      constructor() {
-        this.reset();
-      }
-
-      reset() {
-        this.x = Math.random() * width;
-        this.y = Math.random() * height;
-        this.radius = Math.random() * 60 + 20;
-        this.color = `hsla(${Math.random() * 360}, 70%, 60%, 0.05)`;
-        this.dx = (Math.random() - 0.5) * 0.3;
-        this.dy = (Math.random() - 0.5) * 0.3;
-      }
-
-      update() {
-        this.x += this.dx;
-        this.y += this.dy;
-
-        if (this.x - this.radius > width || this.x + this.radius < 0 ||
-            this.y - this.radius > height || this.y + this.radius < 0) {
-          this.reset();
-        }
-      }
-
-      draw() {
-        ctx.beginPath();
-        ctx.fillStyle = this.color;
-        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-        ctx.fill();
-      }
-    }
-
-    for (let i = 0; i < 40; i++) {
-      balls.push(new Ball());
-    }
-
-    function animate() {
-      ctx.clearRect(0, 0, width, height);
-      balls.forEach(ball => {
-        ball.update();
-        ball.draw();
-      });
-      requestAnimationFrame(animate);
-    }
-
-    animate();
-  </script>
 </body>
 </html>
