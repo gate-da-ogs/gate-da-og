@@ -18,7 +18,31 @@
       position: fixed;
       top: 0;
       left: 0;
+      z-index: -2;
+    }
+
+    .math-symbol {
+      position: fixed;
+      font-size: 2rem;
+      color: rgba(255, 255, 255, 0.08);
+      animation: float 20s linear infinite;
+      pointer-events: none;
+      user-select: none;
       z-index: -1;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.1;
+      }
+      100% {
+        transform: translateY(-100vh) rotate(360deg);
+        opacity: 0;
+      }
     }
 
     .container {
@@ -28,6 +52,7 @@
       padding-top: 60px;
       min-height: 100vh;
       z-index: 1;
+      position: relative;
     }
 
     h1 {
@@ -88,6 +113,22 @@
 </head>
 <body>
   <canvas id="bg"></canvas>
+
+  <!-- Floating Math Symbols -->
+  <script>
+    const symbols = ["∑", "π", "μ", "σ", "√", "∫", "∂", "∞", "Δ", "λ"];
+    for (let i = 0; i < 30; i++) {
+      const symbol = document.createElement("div");
+      symbol.className = "math-symbol";
+      symbol.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+      symbol.style.left = Math.random() * 100 + "vw";
+      symbol.style.top = Math.random() * 100 + "vh";
+      symbol.style.fontSize = `${Math.random() * 2 + 1.5}rem`;
+      symbol.style.animationDuration = `${15 + Math.random() * 20}s`;
+      document.body.appendChild(symbol);
+    }
+  </script>
+
   <div class="container">
     <h1>🎓 IIT Rankers 2025 🎉</h1>
     <div class="list-card">
@@ -106,6 +147,7 @@
     </div>
   </div>
 
+  <!-- Background Ball Animation -->
   <script>
     const canvas = document.getElementById("bg");
     const ctx = canvas.getContext("2d");
@@ -129,9 +171,9 @@
         this.x = Math.random() * width;
         this.y = Math.random() * height;
         this.radius = Math.random() * 60 + 20;
-        this.color = `hsla(${Math.random() * 360}, 70%, 60%, 0.08)`;
-        this.dx = (Math.random() - 0.5) * 0.5;
-        this.dy = (Math.random() - 0.5) * 0.5;
+        this.color = `hsla(${Math.random() * 360}, 70%, 60%, 0.05)`;
+        this.dx = (Math.random() - 0.5) * 0.3;
+        this.dy = (Math.random() - 0.5) * 0.3;
       }
 
       update() {
