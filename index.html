@@ -22,13 +22,21 @@
       align-items: center;
       padding-top: 60px;
       min-height: 100vh;
+      text-align: center;
     }
 
     h1 {
-      font-size: 2.8em;
-      margin-bottom: 30px;
+      font-size: 2.6em;
+      margin-bottom: 10px;
       color: #00ffc3;
       text-shadow: 0 0 10px #00ffc3;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      margin-bottom: 30px;
+      color: rgba(0, 255, 200, 0.6);
+      text-shadow: 0 0 8px rgba(0, 255, 200, 0.2);
     }
 
     .list-card {
@@ -57,34 +65,37 @@
       opacity: 0;
     }
 
-    .rank-list li:nth-child(n) { animation-delay: calc(0.2s * var(--i)); }
+    .rank-list li:nth-child(n) {
+      animation-delay: calc(0.2s * var(--i));
+    }
 
     @keyframes fadeIn {
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Background Symbols Animation */
+    /* Floating Math Symbol Style */
     .symbol {
       position: absolute;
       font-size: 2.5rem;
-      color: rgba(0, 255, 200, 0.08);
-      animation: floatDown linear infinite;
+      font-weight: bold;
+      color: rgba(0, 255, 200, 0.05);
+      animation: driftDown linear infinite;
       user-select: none;
       pointer-events: none;
       z-index: 0;
     }
 
-    @keyframes floatDown {
+    @keyframes driftDown {
       0% {
-        transform: translateY(-100vh) rotate(0deg);
+        transform: translateY(-100vh) scale(1);
         opacity: 0;
       }
       50% {
-        opacity: 0.15;
+        opacity: 0.12;
       }
       100% {
-        transform: translateY(120vh) rotate(360deg);
+        transform: translateY(120vh) scale(1.2);
         opacity: 0;
       }
     }
@@ -107,25 +118,27 @@
   <!-- Floating Math Symbols -->
   <script>
     const symbols = ["∑", "π", "μ", "σ", "√", "∫", "∂", "∞", "Δ", "λ"];
-    for (let i = 0; i < 40; i++) {
+    for (let i = 0; i < 50; i++) {
       const el = document.createElement("div");
       el.className = "symbol";
       el.innerText = symbols[Math.floor(Math.random() * symbols.length)];
       el.style.left = Math.random() * 100 + "vw";
       el.style.top = Math.random() * -100 + "vh";
-      el.style.animationDuration = `${15 + Math.random() * 20}s`;
+      el.style.animationDuration = `${20 + Math.random() * 30}s`;
       el.style.fontSize = `${1.5 + Math.random() * 2.5}rem`;
+      el.style.transform = `rotate(${Math.random() * 360}deg)`;
       document.body.appendChild(el);
     }
   </script>
 
   <div class="container">
     <h1>🎓 IIT Rankers 2025 🎉</h1>
+    <div class="subtitle">Powered by Zz Academy</div>
     <div class="list-card">
       <ul class="rank-list">
         <li style="--i:1">1. Jaydeep — IIT Madras</li>
         <li style="--i:2">2. Spider — IIT Jodhpur</li>
-        <li style="--i:3">3. Vashisht — IIT Jodhpur</li>
+        <li style="--i:3">3. Ducky — IIT Jodhpur</li> <!-- Name updated -->
         <li style="--i:4">4. Anat / Aham / Rahul / A — IIT Madras</li>
         <li style="--i:5">5. Arrrow — IIT Tirupati</li>
         <li style="--i:6">6. Chinmay — IIT Pallakad</li>
